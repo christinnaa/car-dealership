@@ -14,16 +14,22 @@
                             <b-col class="table-container">
                                 <b-container fluid class="container-card rounded p-3">
                                     <b-row>
-                                        <b-col class="title-container d-flex align-items-center">
+                                        <b-col lg="6" class="title-container d-flex align-items-center mt-2">
                                             <h5 class="px-3">Car Records</h5>
-                                        </b-col> 
-                                        <b-col>
+                                        </b-col>
+                                        <b-col lg="6" class="mt-2">
                                             <b-form-input placeholder="Search" v-model="keyword"></b-form-input>
                                         </b-col>
                                     </b-row>
                                     <div class="table-responsive mt-3">
                                         <b-table id="cars-table" hover :items="items" :fields="fields"
                                             :keyword="keyword" :per-page="perPage" :current-page="currentPage">
+                                            <template v-slot:cell(car_for_sale)="{ item }">
+                                                <b-badge v-if="(item.car_for_sale === 'Yes')" pill variant="success">
+                                                    AVAILABLE</b-badge>
+                                                <b-badge v-else pill variant="danger">SOLD</b-badge>
+                                            </template>
+
                                             <template v-slot:cell(actions)="{ item }">
                                                 <div class="d-flex justify-content-center">
                                                     <div>
@@ -32,7 +38,8 @@
                                                         </b-button>
                                                     </div>
                                                     <div>
-                                                        <b-button id="delete-container" v-b-modal @click="showDeleteModal(item)">
+                                                        <b-button id="delete-container" v-b-modal
+                                                            @click="showDeleteModal(item)">
                                                             <b-icon class="delete-btn" icon="trash-fill"></b-icon>
                                                         </b-button>
                                                     </div>
@@ -192,6 +199,7 @@ export default {
                         return formatter.format(price);
                     }
                 },
+                { key: "car_for_sale", label: "Status" },
                 { key: "actions", label: "Actions" },
             ],
         }
