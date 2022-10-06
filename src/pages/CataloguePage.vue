@@ -7,7 +7,7 @@
                 <HeaderComponent title="Catalogue" />
                 <b-container fluid>
                     <b-col class="my-2">
-                        <b-row cols="12" class="d-flex" :keyword="keyword">
+                        <b-row cols="12" class="d-flex">
 
                             <b-col lg="3" class="car-container" v-for="car in listCars" :key="car.car_id">
                                 <div class="container-card flex-column center-flex">
